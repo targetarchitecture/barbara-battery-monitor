@@ -333,7 +333,7 @@ void printDirectory(File dir, int numTabs)
             EPD.println(entry.size(), DEC);
 
             EPD.display();
-            delay(2000);
+
         }
         entry.close();
     }
