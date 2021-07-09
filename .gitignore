@@ -3,5 +3,4 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .config/config.h
-src/*.bak
 include/config.h

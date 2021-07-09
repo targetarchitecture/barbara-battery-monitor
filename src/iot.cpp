@@ -1,58 +1,7 @@
-#include <Arduino.h>
+#include "iot.h"
 
-// Adafruit IO Multiple Feed Example
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Written by Todd Treece for Adafruit Industries
-// Copyright (c) 2016 Adafruit Industries
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-
-/************************** Configuration ***********************************/
-
-// edit the config.h tab and enter your Adafruit IO credentials
-// and any additional configuration needed for WiFi, cellular,
-// or ethernet clients.
-#include "config.h"
-
-/************************ Example Starts Here *******************************/
-
-
-//void handleLight(AdafruitIO_Data *data);
-//void handleCount(AdafruitIO_Data *data);
-
-
-// holds the current count value for our sketch
-int count = 0;
-// holds the boolean (true/false) state of the light
-bool is_on = false;
-
-// track time of last published messages and limit feed->save events to once
-// every IO_LOOP_DELAY milliseconds
-#define IO_LOOP_DELAY 6000
-unsigned long lastUpdate;
-
-// set up the 'counter' feed
-AdafruitIO_Feed *counter = io.feed("leisure-voltage");
-
-// set up the 'counter-two' feed
-AdafruitIO_Feed *counter_two = io.feed("car-voltage");
-
-// set up the 'light' feed
-AdafruitIO_Feed *light = io.feed("solar-voltage");
-
-void setup() {
-
-  // start the serial connection
-  Serial.begin(115200);
-
-  // wait for serial monitor to open
-  while(! Serial);
-
+void setup_io()
+{
   Serial.print("Connecting to Adafruit IO");
 
   // connect to io.adafruit.com
@@ -68,7 +17,8 @@ void setup() {
   //light->onMessage(handleLight);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED)
+  {
     Serial.print(".");
     delay(500);
   }
@@ -81,21 +31,21 @@ void setup() {
   counter->get();
   counter_two->get();
   light->get();
-
 }
 
-void loop() {
-
+void loop_io()
+{
   // process messages and keep connection alive
   io.run();
 
-  if (millis() > (lastUpdate + IO_LOOP_DELAY)) {
+  if (millis() > (lastUpdate + IO_LOOP_DELAY))
+  {
     Serial.println();
 
     // save current count to 'counter'
     Serial.print("sending -> counter ");
-    Serial.println(count);
-    counter->save(count);
+    Serial.println(count2);
+    counter->save(count2);
 
     // increment the count by 1 and save the value to 'counter-two'
     Serial.print("sending -> counter-two ");
@@ -104,7 +54,7 @@ void loop() {
 
     // print out the light value we are sending to Adafruit IO
     Serial.print("sending -> light ");
-    if(is_on)
+    if (is_on)
       Serial.println("is on.\n");
     else
       Serial.println("is off.\n");
@@ -113,11 +63,11 @@ void loop() {
     light->save(is_on);
 
     // increment count value
-    count++;
+    count2++;
 
     // for the purpose of this demo, toggle the
     // light state based on the count value
-    if((count % 2) == 0)
+    if ((count2 % 2) == 0)
       is_on = true;
     else
       is_on = false;
@@ -125,10 +75,9 @@ void loop() {
     // update timer
     lastUpdate = millis();
 
-      //This tries to stop the CPU melting
-  delay(1000);
+    //This tries to stop the CPU melting
+    delay(1000);
   }
-
 }
 
 // // you can set a separate message handler for a single feed,
