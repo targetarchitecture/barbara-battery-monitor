@@ -81,7 +81,7 @@ void setup_epd()
     Serial.println("done!");
 
     EPD.display();
-    delay(2000);
+    //delay(2000);
 }
 
 void loop_epd()
@@ -100,5 +100,5 @@ void loop_epd()
 
     EPD.partDisplay(0, 32, gImage_num1, 32, 32);
     EPD.partDisplay(0, 32, gImage_num2, 32, 32);
-    delay(2000);
+    //delay(2000);
 }

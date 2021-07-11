@@ -1,11 +1,35 @@
 #include "iot.h"
 
+
+// holds the current count value for our sketch
+int count2 = 0;
+
+// holds the boolean (true/false) state of the light
+bool is_on = false;
+
+// track time of last published messages and limit feed->save events to once
+// every IO_LOOP_DELAY milliseconds
+#define IO_LOOP_DELAY 6000
+unsigned long lastUpdate;
+
+AdafruitIO_WiFi iot(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
+
+// set up the 'counter' feed
+AdafruitIO_Feed *counter = iot.feed("leisure-voltage");
+
+// set up the 'counter-two' feed
+AdafruitIO_Feed *counter_two = iot.feed("car-voltage");
+
+// set up the 'light' feed
+AdafruitIO_Feed *light = iot.feed("solar-voltage");
+
+
 void setup_io()
 {
   Serial.print("Connecting to Adafruit IO");
 
   // connect to io.adafruit.com
-  io.connect();
+  iot.connect();
 
   // attach message handler for the counter feed.
   //counter->onMessage(handleCount);
@@ -17,7 +41,7 @@ void setup_io()
   //light->onMessage(handleLight);
 
   // wait for a connection
-  while (io.status() < AIO_CONNECTED)
+  while (iot.status() < AIO_CONNECTED)
   {
     Serial.print(".");
     delay(500);
@@ -25,7 +49,7 @@ void setup_io()
 
   // we are connected
   Serial.println();
-  Serial.println(io.statusText());
+  Serial.println(iot.statusText());
 
   // make sure all feeds get their current values right away
   counter->get();
@@ -36,7 +60,7 @@ void setup_io()
 void loop_io()
 {
   // process messages and keep connection alive
-  io.run();
+  iot.run();
 
   if (millis() > (lastUpdate + IO_LOOP_DELAY))
   {
