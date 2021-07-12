@@ -1,6 +1,5 @@
 #include "iot.h"
 
-
 // holds the current count value for our sketch
 int count2 = 0;
 
@@ -22,7 +21,6 @@ AdafruitIO_Feed *counter_two = iot.feed("car-voltage");
 
 // set up the 'light' feed
 AdafruitIO_Feed *light = iot.feed("solar-voltage");
-
 
 void setup_io()
 {
@@ -65,6 +63,8 @@ void loop_io()
   if (millis() > (lastUpdate + IO_LOOP_DELAY))
   {
     Serial.println();
+
+    writeToLog(String(count2));
 
     // save current count to 'counter'
     Serial.print("sending -> counter ");

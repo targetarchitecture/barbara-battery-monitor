@@ -5,3 +5,5 @@
 
 void setup_io();
 void loop_io();
+
+extern void writeToLog(String dataString);
