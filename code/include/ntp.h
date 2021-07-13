@@ -1,4 +1,8 @@
+#pragma once
 #include <NTPtimeESP.h>
+#include <Wire.h>
+#include <TimeLib.h>
+#include <DS1307RTC.h>
 
 /*
    This sketch shows an example of sending a reading to data.sparkfun.com once per day.

@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include "sd_logging.h"
 
-//File root;
 
 void setup_sd_logging()
 {
@@ -14,69 +13,11 @@ void setup_sd_logging()
   }
   Serial.println("initialization done.");
 
-  // Serial.println(SD.size64());
-
-  //   EPD.clearBuffer();
-  //   EPD.setCursor(0, 0);
-
-  //root = SD.open("/");
-
-  EPD.println(SD.size64());
-  EPD.display();
-
-  // printDirectory(root, 0);
+  // EPD.println(SD.size64());
+  // EPD.display();
 
   Serial.println("done!");
-
-  //  EPD.display();
-  //delay(2000);
 }
-
-// void printDirectory(File dir, int numTabs)
-// {
-//     while (true)
-//     {
-//         File entry = dir.openNextFile();
-//         if (!entry)
-//         {
-//             // no more files
-//             break;
-//         }
-//         for (uint8_t i = 0; i < numTabs; i++)
-//         {
-//             Serial.print('\t');
-
-//             EPD.println('\t');
-//             //     EPD.println(EPD.getRotation());
-//             //     EPD.display();
-//         }
-//         Serial.print(entry.name());
-//         EPD.print(entry.name());
-//         EPD.display();
-
-//         if (entry.isDirectory())
-//         {
-//             Serial.println("/");
-//             EPD.println('/');
-
-//             EPD.display();
-
-//             printDirectory(entry, numTabs + 1);
-//         }
-//         else
-//         {
-//             // files have sizes, directories do not
-//             Serial.print("\t\t");
-//             Serial.println(entry.size(), DEC);
-
-//             EPD.println("\t\t");
-//             EPD.println(entry.size(), DEC);
-
-//             EPD.display();
-//         }
-//         entry.close();
-//     }
-// }
 
 void writeToLog(String dataString)
 {

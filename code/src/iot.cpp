@@ -50,9 +50,9 @@ void setup_io()
   Serial.println(iot.statusText());
 
   // make sure all feeds get their current values right away
-  counter->get();
-  counter_two->get();
-  light->get();
+  // counter->get();
+  // counter_two->get();
+  // light->get();
 }
 
 void loop_io()

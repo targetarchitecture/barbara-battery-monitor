@@ -36,3 +36,43 @@ void setup_epd()
 //    // EPD.partDisplay(0, 32, gImage_num2, 32, 32);
 //     //delay(2000);
 // }
+
+
+// void eprintDateTime(strDateTime _dateTime)
+// {
+// 	if (_dateTime.valid)
+// 	{
+
+// 		EPD.clearBuffer();
+
+// 		EPD.setCursor(0, 50);
+
+// 		EPD.print(_dateTime.year);
+// 		EPD.print("-");
+// 		EPD.print(_dateTime.month);
+// 		EPD.print("-");
+// 		EPD.print(_dateTime.day);
+// 		EPD.print(" ");
+// 		// EPD.print(_dateTime.dayofWeek);
+// 		// EPD.print( " ");
+
+// 		EPD.print(_dateTime.hour);
+// 		EPD.print(":");
+// 		EPD.print(_dateTime.minute);
+// 		EPD.print(":");
+// 		EPD.print(_dateTime.second);
+// 		EPD.println();
+
+// 		//    EPD.display();
+
+// 		EPD.partInit();
+// 		delay(100);
+// 	}
+// 	else
+// 	{
+// #ifdef DEBUG_ON
+// 		Serial.println("Invalid time !!!");
+// 		Serial.println("");
+// #endif
+// 	}
+// }

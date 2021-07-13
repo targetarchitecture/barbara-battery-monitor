@@ -1,6 +1,8 @@
 #pragma once
 #include <Arduino.h>
 #include <LOLIN_EPD.h>
+#include <TimeLib.h>
+#include <DS1307RTC.h>
 //#include <Adafruit_GFX.h>
 
 /*D1 mini*/
@@ -14,4 +16,6 @@
 void setup_epd();
 //void ePaperPrint(const String &s);
 //void loop_epd();
+
+//void eprintDateTime(strDateTime _dateTime);
 
