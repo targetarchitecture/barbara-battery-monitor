@@ -1,0 +1,10 @@
+
+i2c addresses
+
+0x18 - MCP9808 - temperature 
+0x39 - APDS-9960 - colour 
+0x40 - INA260 - leisure battery voltage
+0x41 - INA260 - solar battery voltage
+0x41 - INA260 - solar battery voltage
+0x68 - DS1307 - Real-Time Clock 
+

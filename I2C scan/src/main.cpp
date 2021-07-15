@@ -32,35 +32,12 @@ void i2cScan()
     error = Wire.endTransmission();
     if (error == 0)
     {
-      if (address == 90)
-      {
-        Serial.println("Found MPR121 capacitive touch sensor (0x5A)");
-      }
-      else if (address == 64)
-      {
-        Serial.println("Found PCA9865 servo motion board (0x40)");
-      }
-      else if (address == 112)
-      {
-        Serial.println("Found PCA9865 servo motion board 'All Call' (0x70)");
-      }
-      else if (address == 62)
-      {
-        Serial.println("Found SX1509 LED driver board (0x3E)");
-      }
-      else if (address == 63)
-      {
-        Serial.println("Found SX1509 switch board (0x3F)");
-      }
-      else
-      {
         Serial.print("I2C device found at address 0x");
         if (address < 16)
         {
           Serial.print("0");
         }
-        Serial.println(address, HEX);
-      }
+        Serial.println(address, HEX);      
 
       nDevices++;
     }
