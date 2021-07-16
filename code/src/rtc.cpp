@@ -1,14 +1,7 @@
 #include <Arduino.h>
 #include "rtc.h"
 
-const char *monthName[12] = {
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-
 tmElements_t tm;
-
-// bool parseRTC = false;
-// bool configRTC = false;
 
 void setup_rtc()
 {
@@ -16,8 +9,7 @@ void setup_rtc()
   {
     if (RTC.chipPresent())
     {
-      Serial.println("The DS1307 is stopped.  Please run the SetTime");
-      
+      Serial.println("The DS1307 is stopped.  Please run the SetTime");      
     }
     else
     {
@@ -45,14 +37,6 @@ void setup_rtc()
   }
 }
 
-//   // get the date and time the compiler was run
-//   if (getDate(__DATE__) && getTime(__TIME__)) {
-//     parse = true;
-//     // and configure the RTC with this info
-//     if (RTC.write(tm)) {
-//       config = true;
-//     }
-//   }
 
 void print2digits(int number)
 {
@@ -96,7 +80,5 @@ void loop_rtc()
       Serial.println("DS1307 read error!  Please check the circuitry.");
       Serial.println();
     }
-    delay(9000);
   }
-  delay(1000);
 }

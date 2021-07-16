@@ -8,8 +8,8 @@ void loop_io();
 
 extern void writeToLog(String dataString);
 
-extern double leisureVoltage;
-extern double carVoltage;
-extern double solarVoltage;
-extern bool floatMode;
-extern double temperature;
+extern volatile float leisureVoltage;
+extern volatile float carVoltage;
+extern volatile float solarVoltage;
+extern volatile bool floatMode;
+extern volatile float temperature;

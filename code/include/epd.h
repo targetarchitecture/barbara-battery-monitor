@@ -3,7 +3,8 @@
 #include <LOLIN_EPD.h>
 #include <TimeLib.h>
 #include <DS1307RTC.h>
-//#include <Adafruit_GFX.h>
+#include <Adafruit_GFX.h>
+#include <LittleFS.h>
 
 /*D1 mini*/
 #define EPD_CS D0

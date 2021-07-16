@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <voltages.h>
 #include <epd.h>
 #include <LOLIN_EPD.h>
 #include <iot.h>
@@ -7,16 +8,15 @@
 #include <colour.h>
 #include <rtc.h>
 #include <temperature.h>
-#include <voltages.h>
 
 tmElements_t currentTime;
 String logFileName;
 
-double leisureVoltage=0;
-double carVoltage=0;
-double solarVoltage=0;
-bool floatMode=false;
-double temperature=0;
+volatile float leisureVoltage = 0;
+volatile float carVoltage = 0;
+volatile float solarVoltage = 0;
+volatile bool floatMode = false;
+volatile float temperature = 0;
 
 void getCurrentTime();
 
@@ -25,14 +25,15 @@ void setup()
 	Serial.begin(115200);
 	Serial.println("");
 
-	//setup_epd();
+	setup_epd();
 	setup_sd_logging();
 
-	setup_io();
-	setup_rtc();
+	//setup_io();
+	//setup_rtc();
 
 	setup_color();
 	setup_temperature();
+	setup_voltages();
 }
 
 void loop()
@@ -41,15 +42,30 @@ void loop()
 
 	getCurrentTime();
 
-	loop_io();
+	//loop_io();
 
 	loop_color();
 
 	loop_temperature();
 
+	loop_voltages();
+
 	//loop_epd();
 
 	//eprintDateTime(dateTime);
+	LittleFS.begin();
+	File file = LittleFS.open("/altrnatr.bmp", "r");
+
+	if (!file)
+	{
+		Serial.println("No Saved Data!");
+	}
+	else
+	{
+		Serial.print("Size: ");
+		Serial.println(file.size());
+	}
+	LittleFS.end();
 }
 
 void getCurrentTime()

@@ -18,12 +18,12 @@ void setup_temperature()
 
 void loop_temperature()
 {
-  tempsensor.wake();                      // wake up MCP9808 - power consumption ~200 mikro Ampere, ready to read!
+  tempsensor.wake(); // wake up MCP9808 - power consumption ~200 mikro Ampere, ready to read!
 
-  float c = tempsensor.readTempC();
+  temperature = tempsensor.readTempC();
 
   Serial.print("Temp: ");
-  Serial.print(c, 4);
+  Serial.print(temperature, 4);
   Serial.println("*C");
 
   tempsensor.shutdown_wake(1); // shutdown MSP9808 - power consumption ~0.1 mikro Ampere, stops temperature sampling

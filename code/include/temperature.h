@@ -4,3 +4,5 @@
 
 void setup_temperature();
 void loop_temperature();
+
+extern volatile float temperature;
