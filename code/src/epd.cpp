@@ -7,16 +7,20 @@ void setup_epd()
 {
     EPD.begin();
     EPD.clearBuffer();
-    EPD.setCursor(0,0);
+    EPD.setCursor(0, 0);
     EPD.setTextColor(EPD_BLACK);
     EPD.setTextSize(2);
     EPD.println("Barbara");
     EPD.partInit();
 
+   EPD.drawBitmap(0, 0, epd_bitmap_display, 255, 122, 0);
+   //  EPD.drawBitmap(0, 50, epd_bitmap_battery, 64, 60, 0);
+     //EPD.drawBitmap(0, 100, epd_bitmap_float, 64, 60, 0);
+    // EPD.drawBitmap(50, 50, epd_bitmap_solar, 64, 60, 0);
+     //EPD.drawBitmap(50, 100, epd_bitmap_van, 64, 60, 0);
+
     EPD.display();
 }
-
-
 
 // void loop_epd()
 // {
@@ -36,7 +40,6 @@ void setup_epd()
 //    // EPD.partDisplay(0, 32, gImage_num2, 32, 32);
 //     //delay(2000);
 // }
-
 
 // void eprintDateTime(strDateTime _dateTime)
 // {

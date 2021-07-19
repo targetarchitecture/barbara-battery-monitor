@@ -28,12 +28,13 @@ void setup()
 	setup_epd();
 	setup_sd_logging();
 
-	//setup_io();
-	//setup_rtc();
+	 setup_io();
+	 
+	// setup_rtc();
 
-	setup_color();
-	setup_temperature();
-	setup_voltages();
+	// setup_color();
+	// setup_temperature();
+	// setup_voltages();
 }
 
 void loop()
@@ -42,30 +43,17 @@ void loop()
 
 	getCurrentTime();
 
-	//loop_io();
+	// loop_io();
 
-	loop_color();
+	// loop_color();
 
-	loop_temperature();
+	// loop_temperature();
 
-	loop_voltages();
+	// loop_voltages();
 
 	//loop_epd();
 
 	//eprintDateTime(dateTime);
-	LittleFS.begin();
-	File file = LittleFS.open("/altrnatr.bmp", "r");
-
-	if (!file)
-	{
-		Serial.println("No Saved Data!");
-	}
-	else
-	{
-		Serial.print("Size: ");
-		Serial.println(file.size());
-	}
-	LittleFS.end();
 }
 
 void getCurrentTime()
