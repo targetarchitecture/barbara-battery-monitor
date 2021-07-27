@@ -14,17 +14,35 @@ AdafruitIO_Feed *cabin_temperature = iot.feed("temperature");
 
 void setup_io()
 {
+  if (iot.status() == AIO_CONNECTED)
+  {
+    Serial.println("Already connected to Adafruit IO");
+
+    return;
+  }
+
   Serial.print("Connecting to Adafruit IO");
 
   // connect to io.adafruit.com
   iot.connect();
 
   // wait for a connection
-  while (iot.status() < AIO_CONNECTED)
+  for (size_t i = 0; i < 10; i++)
   {
+    if (iot.status() == AIO_CONNECTED)
+    {
+      break;
+    }
+
     Serial.print(".");
-    delay(500);
+    delay(1000);
   }
+
+  // while (iot.status() < AIO_CONNECTED)
+  // {
+  //   Serial.print(".");
+  //   delay(500);
+  // }
 
   // we are connected
   Serial.println();

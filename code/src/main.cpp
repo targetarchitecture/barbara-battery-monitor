@@ -25,35 +25,42 @@ void setup()
 	Serial.begin(115200);
 	Serial.println("");
 
-	setup_epd();
+	//setup_epd();
+
 	setup_sd_logging();
 
-	 setup_io();
-	 
-	// setup_rtc();
+	setup_rtc();
 
-	// setup_color();
-	// setup_temperature();
-	// setup_voltages();
+	setup_color();
+
+	setup_temperature();
+
+	setup_voltages();
 }
 
 void loop()
 {
+	setup_io();
+
 	delay(1000);
 
 	getCurrentTime();
 
-	// loop_io();
+	loop_io();
 
-	// loop_color();
+	loop_color();
 
-	// loop_temperature();
+	loop_temperature();
 
-	// loop_voltages();
+	loop_voltages();
 
 	//loop_epd();
 
 	//eprintDateTime(dateTime);
+
+	String dataString = "";
+
+	writeToLog(logFileName, dataString);
 }
 
 void getCurrentTime()
@@ -110,7 +117,7 @@ void getCurrentTime()
 			currentTime.Month = NTPtime.month;
 			currentTime.Second = NTPtime.second;
 			currentTime.Wday = NTPtime.dayofWeek;
-			currentTime.Year = NTPtime.year;
+			currentTime.Year = CalendarYrToTm(NTPtime.year);
 
 			Serial.println("The DS1307 writing time");
 

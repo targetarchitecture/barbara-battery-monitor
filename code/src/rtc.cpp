@@ -9,7 +9,7 @@ void setup_rtc()
   {
     if (RTC.chipPresent())
     {
-      Serial.println("The DS1307 is stopped.  Please run the SetTime");      
+      Serial.println("The DS1307 is stopped.  Please run the SetTime");
     }
     else
     {
@@ -33,10 +33,12 @@ void setup_rtc()
     Serial.print(tm.Month);
     Serial.write('/');
     Serial.print(tmYearToCalendar(tm.Year));
+    Serial.write(' (');
+    Serial.print(tm.Year);
+    Serial.write(')');
     Serial.println();
   }
 }
-
 
 void print2digits(int number)
 {
