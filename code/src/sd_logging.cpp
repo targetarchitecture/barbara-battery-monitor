@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include "sd_logging.h"
 
-
 void setup_sd_logging()
 {
   Serial.print("Initializing SD card...");
@@ -28,6 +27,11 @@ void writeToLog(String logFileName, String dataString)
   // if the file is available, write to it:
   if (dataFile)
   {
+    if (dataFile.size() == 0)
+    {
+      dataFile.println("date time,temperature,float,leisure,car,solar");
+    }
+
     dataFile.println(dataString);
     dataFile.close();
     // print to the serial port too:
@@ -36,6 +40,7 @@ void writeToLog(String logFileName, String dataString)
   // if the file isn't open, pop up an error:
   else
   {
-    Serial.println("error opening datalog.txt");
+    Serial.print("error opening: ");
+    Serial.println(logFileName);
   }
 }

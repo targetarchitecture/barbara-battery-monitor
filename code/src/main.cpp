@@ -42,7 +42,7 @@ void loop()
 {
 	setup_io();
 
-	delay(1000);
+	delay(10000);
 
 	getCurrentTime();
 
@@ -58,7 +58,9 @@ void loop()
 
 	//eprintDateTime(dateTime);
 
-	String dataString = "";
+	char dataString[1000];
+
+	sprintf(dataString, "%d/%d/%d %02d:%02d:%02d,%f,%d,%f,%f,%f",tmYearToCalendar( currentTime.Year), currentTime.Month, currentTime.Day, currentTime.Hour, currentTime.Minute, currentTime.Second, temperature, floatMode, leisureVoltage, carVoltage, solarVoltage);
 
 	writeToLog(logFileName, dataString);
 }
@@ -81,12 +83,16 @@ void getCurrentTime()
 		Serial.print(tmYearToCalendar(currentTime.Year));
 		Serial.println();
 
-		logFileName = currentTime.Day;
+		logFileName = "";
+		logFileName += currentTime.Day;
 		logFileName += "-";
 		logFileName += currentTime.Month;
 		logFileName += "-";
 		logFileName += tmYearToCalendar(currentTime.Year);
 		logFileName += ".log";
+
+				Serial.print("log filename: ");
+			Serial.println(logFileName);
 	}
 	else
 	{

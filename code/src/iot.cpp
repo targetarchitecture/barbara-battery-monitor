@@ -65,8 +65,5 @@ void loop_io()
 
     // update timer
     lastUpdate = millis();
-
-    //This tries to stop the CPU melting
-    delay(1000);
   }
 }
