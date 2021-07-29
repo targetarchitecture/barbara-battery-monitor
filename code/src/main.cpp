@@ -17,6 +17,9 @@ volatile float carVoltage = 0;
 volatile float solarVoltage = 0;
 volatile bool floatMode = false;
 volatile float temperature = 0;
+volatile double latitude = 0;
+volatile double longitude = 0;
+volatile double elevation = 0;
 
 void getCurrentTime();
 
@@ -25,7 +28,7 @@ void setup()
 	Serial.begin(115200);
 	Serial.println("");
 
-	//setup_epd();
+	setup_epd();
 
 	setup_sd_logging();
 
@@ -40,8 +43,6 @@ void setup()
 
 void loop()
 {
-	setup_io();
-
 	delay(10000);
 
 	getCurrentTime();
@@ -54,13 +55,13 @@ void loop()
 
 	loop_voltages();
 
-	//loop_epd();
+	loop_epd();
 
 	//eprintDateTime(dateTime);
 
 	char dataString[1000];
 
-	sprintf(dataString, "%d/%d/%d %02d:%02d:%02d,%f,%d,%f,%f,%f",tmYearToCalendar( currentTime.Year), currentTime.Month, currentTime.Day, currentTime.Hour, currentTime.Minute, currentTime.Second, temperature, floatMode, leisureVoltage, carVoltage, solarVoltage);
+	sprintf(dataString, "%d/%d/%d %02d:%02d:%02d,%.0f,%d,%.2f,%.2f,%.2f", tmYearToCalendar(currentTime.Year), currentTime.Month, currentTime.Day, currentTime.Hour, currentTime.Minute, currentTime.Second, temperature, floatMode, leisureVoltage, carVoltage, solarVoltage);
 
 	writeToLog(logFileName, dataString);
 }
@@ -91,8 +92,8 @@ void getCurrentTime()
 		logFileName += tmYearToCalendar(currentTime.Year);
 		logFileName += ".log";
 
-				Serial.print("log filename: ");
-			Serial.println(logFileName);
+		Serial.print("log filename: ");
+		Serial.println(logFileName);
 	}
 	else
 	{

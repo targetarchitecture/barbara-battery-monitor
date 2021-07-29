@@ -12,56 +12,47 @@ AdafruitIO_Feed *solar_voltage = iot.feed("solar-voltage");
 AdafruitIO_Feed *float_mode = iot.feed("float-mode");
 AdafruitIO_Feed *cabin_temperature = iot.feed("temperature");
 
-void setup_io()
+void loop_io()
 {
   if (iot.status() == AIO_CONNECTED)
   {
     Serial.println("Already connected to Adafruit IO");
-
-    return;
   }
-
-  Serial.print("Connecting to Adafruit IO");
-
-  // connect to io.adafruit.com
-  iot.connect();
-
-  // wait for a connection
-  for (size_t i = 0; i < 10; i++)
+  else
   {
-    if (iot.status() == AIO_CONNECTED)
+    Serial.print("Connecting to Adafruit IO");
+
+    // connect to io.adafruit.com
+    iot.connect();
+
+    // wait for a connection
+    for (size_t i = 0; i < 10; i++)
     {
-      break;
+      if (iot.status() == AIO_CONNECTED)
+      {
+        break;
+      }
+
+      Serial.print(".");
+      delay(1000);
     }
 
-    Serial.print(".");
-    delay(1000);
+    // we are connected
+    Serial.println();
+    Serial.println(iot.statusText());
   }
 
-  // while (iot.status() < AIO_CONNECTED)
-  // {
-  //   Serial.print(".");
-  //   delay(500);
-  // }
-
-  // we are connected
-  Serial.println();
-  Serial.println(iot.statusText());
-}
-
-void loop_io()
-{
   // process messages and keep connection alive
   iot.run();
 
   if (millis() > (lastUpdate + SEND_EVERY_MS))
   {
     //save feeds to Adafruit IO
-    leisure_voltage->save(leisureVoltage);
-    car_voltage->save(carVoltage);
-    solar_voltage->save(solarVoltage);
-    float_mode->save(floatMode);
-    cabin_temperature->save(temperature);
+    leisure_voltage->save(leisureVoltage, latitude, longitude, elevation, 2);
+    car_voltage->save(carVoltage, latitude, longitude, elevation, 2);
+    solar_voltage->save(solarVoltage, latitude, longitude, elevation, 2);
+    float_mode->save(floatMode, latitude, longitude, elevation);
+    cabin_temperature->save(temperature, latitude, longitude, elevation, 1);
 
     // update timer
     lastUpdate = millis();

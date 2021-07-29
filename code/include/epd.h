@@ -12,7 +12,20 @@
 #define EPD_RST -1  // can set to -1 and share with microcontroller Reset!
 #define EPD_BUSY -1 // can set to -1 to not use a pin (will wait a fixed delay)
 
+extern volatile float leisureVoltage;
+extern volatile float carVoltage;
+extern volatile float solarVoltage;
+extern volatile bool floatMode;
+extern volatile float temperature;
+extern volatile double latitude;
+extern volatile double longitude;
+extern volatile double elevation;
+
+extern tmElements_t currentTime;
+
 void setup_epd();
+void loop_epd();
+void epdPrint2digits(int number);
 
 // 'display', 250x122px
 const unsigned char epd_bitmap_display [] PROGMEM = {

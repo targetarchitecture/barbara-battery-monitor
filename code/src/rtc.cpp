@@ -33,9 +33,6 @@ void setup_rtc()
     Serial.print(tm.Month);
     Serial.write('/');
     Serial.print(tmYearToCalendar(tm.Year));
-    Serial.write(' (');
-    Serial.print(tm.Year);
-    Serial.write(')');
     Serial.println();
   }
 }
