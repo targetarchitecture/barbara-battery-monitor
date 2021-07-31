@@ -26,6 +26,10 @@ void loop_epd()
 {
   EPD.clearBuffer();
   EPD.clearDisplay();
+  delay(100);
+
+ EPD.clearBuffer();
+
   EPD.setTextSize(2);
   EPD.setTextColor(EPD_BLACK);
   EPD.setCursor(5, 0); // 10 to the right and 18 down
@@ -56,7 +60,7 @@ void loop_epd()
   // EPD.println();
 
   EPD.display();
-  EPD.partInit();
+ // EPD.partInit();
   delay(100);
 }
 
