@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <voltages.h>
 #include <epd.h>
-#include <LOLIN_EPD.h>
 #include <iot.h>
 #include <ntp.h>
 #include <sd_logging.h>

@@ -1,37 +1,51 @@
 #include <Arduino.h>
 #include "epd.h"
 
-LOLIN_IL3897 EPD(250, 122, EPD_DC, EPD_RST, EPD_CS, EPD_BUSY); //hardware SPI
+/* Uncomment the following line if you are using 2.13" monochrome 250*122 EPD */
+Adafruit_SSD1675 EPD(250, 122, EPD_DC, EPD_RST, EPD_CS, -1, EPD_BUSY);
 
 void setup_epd()
 {
   EPD.begin();
-  EPD.clearBuffer();
-  EPD.setCursor(0, 0);
-  EPD.setTextColor(EPD_BLACK);
-  EPD.setTextSize(2);
-  EPD.println("Barbara");
-  EPD.partInit();
+//   EPD.clearBuffer();
+//   EPD.setCursor(0, 0);
+//   EPD.setTextColor(EPD_BLACK);
+//   EPD.setTextSize(2);
+//   EPD.println("Barbara");
 
-  // EPD.drawBitmap(0, 0, epd_bitmap_display, 255, 122, 0);
-  // EPD.drawBitmap(0, 50, epd_bitmap_battery, 64, 60, 0);
-  // EPD.drawBitmap(0, 100, epd_bitmap_float, 64, 60, 0);
-  // EPD.drawBitmap(50, 50, epd_bitmap_solar, 64, 60, 0);
-  // EPD.drawBitmap(50, 100, epd_bitmap_van, 64, 60, 0);
+ // EPD.drawBitmap(0, 0, epd_bitmap_display, 250, 122, 0);
+//   // EPD.drawBitmap(0, 50, epd_bitmap_battery, 64, 60, 0);
+//   // EPD.drawBitmap(0, 100, epd_bitmap_float, 64, 60, 0);
+//   // EPD.drawBitmap(50, 50, epd_bitmap_solar, 64, 60, 0);
+//   // EPD.drawBitmap(50, 100, epd_bitmap_van, 64, 60, 0);
 
-  EPD.display();
+//   EPD.display();
 }
 
 void loop_epd()
 {
   EPD.clearBuffer();
-  EPD.clearDisplay();
-  delay(100);
 
- EPD.clearBuffer();
+  EPD.setTextColor(EPD_BLACK);
+  EPD.setTextSize(1);
+  EPD.setCursor(0, 0);
+
+  EPD.print("Time = ");
+  epdPrint2digits(currentTime.Hour);
+  EPD.write(':');
+  epdPrint2digits(currentTime.Minute);
+  EPD.write(':');
+  epdPrint2digits(currentTime.Second);
+  EPD.print(", Date (D/M/Y) = ");
+  EPD.print(currentTime.Day);
+  EPD.write('/');
+  EPD.print(currentTime.Month);
+  EPD.write('/');
+  EPD.print(tmYearToCalendar(currentTime.Year));
+  EPD.println();
 
   EPD.setTextSize(2);
-  EPD.setTextColor(EPD_BLACK);
+
   EPD.setCursor(5, 0); // 10 to the right and 18 down
   EPD.println("TEMP:" + String(temperature) + "C");
   EPD.setCursor(5, 30); // 10 to the right and 58 down
@@ -41,26 +55,12 @@ void loop_epd()
   EPD.setCursor(5, 90); // 10 to the right and 58 down
   EPD.println("SOLAR:" + String(solarVoltage) + "v");
   //EPD.setCursor(10, 95); // 10 to the right and 58 down
- // EPD.print("BARBARA");
- // EPD.setTextSize(1);
- // EPD.setCursor(130, 1);
-
-  // EPD.print("Ok, Time = ");
-  // epdPrint2digits(currentTime.Hour);
-  // EPD.write(':');
-  // epdPrint2digits(currentTime.Minute);
-  // EPD.write(':');
-  // epdPrint2digits(currentTime.Second);
-  // EPD.print(", Date (D/M/Y) = ");
-  // EPD.print(currentTime.Day);
-  // EPD.write('/');
-  // EPD.print(currentTime.Month);
-  // EPD.write('/');
-  // EPD.print(tmYearToCalendar(currentTime.Year));
-  // EPD.println();
+  // EPD.print("BARBARA");
 
   EPD.display();
- // EPD.partInit();
+
+
+  // EPD.partInit();
   delay(100);
 }
 

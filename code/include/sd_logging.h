@@ -2,9 +2,10 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <SD.h>
-#include <LOLIN_EPD.h>
+#include <Adafruit_GFX.h>
+#include "Adafruit_EPD.h"
 
-extern LOLIN_IL3897 EPD;
+extern Adafruit_SSD1675 EPD;
 
 //extern void ePaperPrint(const String s);
 
