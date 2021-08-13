@@ -7,19 +7,19 @@ Adafruit_SSD1675 EPD(250, 122, EPD_DC, EPD_RST, EPD_CS, -1, EPD_BUSY);
 void setup_epd()
 {
   EPD.begin();
-//   EPD.clearBuffer();
-//   EPD.setCursor(0, 0);
-//   EPD.setTextColor(EPD_BLACK);
-//   EPD.setTextSize(2);
-//   EPD.println("Barbara");
+  // EPD.clearBuffer();
+  // EPD.setCursor(0, 0);
+  // EPD.setTextColor(EPD_BLACK);
+  // EPD.setTextSize(2);
+  // EPD.println("Barbara");
 
- // EPD.drawBitmap(0, 0, epd_bitmap_display, 250, 122, 0);
-//   // EPD.drawBitmap(0, 50, epd_bitmap_battery, 64, 60, 0);
-//   // EPD.drawBitmap(0, 100, epd_bitmap_float, 64, 60, 0);
-//   // EPD.drawBitmap(50, 50, epd_bitmap_solar, 64, 60, 0);
-//   // EPD.drawBitmap(50, 100, epd_bitmap_van, 64, 60, 0);
+  // EPD.drawBitmap(0, 0, epd_bitmap_display, 250, 122, 0);
+  // EPD.drawBitmap(0, 50, epd_bitmap_battery, 64, 60, 0);
+  // EPD.drawBitmap(0, 100, epd_bitmap_float, 64, 60, 0);
+  // EPD.drawBitmap(50, 50, epd_bitmap_solar, 64, 60, 0);
+  // EPD.drawBitmap(50, 100, epd_bitmap_van, 64, 60, 0);
 
-//   EPD.display();
+  // EPD.display();
 }
 
 void loop_epd()
@@ -58,7 +58,6 @@ void loop_epd()
   // EPD.print("BARBARA");
 
   EPD.display();
-
 
   // EPD.partInit();
   delay(100);

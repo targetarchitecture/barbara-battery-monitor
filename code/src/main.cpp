@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <voltages.h>
 #include <epd.h>
+#include <wifi.h>
 #include <iot.h>
 #include <ntp.h>
 #include <sd_logging.h>
@@ -14,11 +15,11 @@ String logFileName;
 volatile float leisureVoltage = 0;
 volatile float carVoltage = 0;
 volatile float solarVoltage = 0;
-volatile bool floatMode = false;
 volatile float temperature = 0;
 volatile double latitude = 0;
 volatile double longitude = 0;
 volatile double elevation = 0;
+volatile bool floatMode = false;
 
 void getCurrentTime();
 
@@ -27,9 +28,11 @@ void setup()
 	Serial.begin(115200);
 	Serial.println("");
 
+	setup_wifi();
+
 	setup_epd();
 
-	setup_sd_logging();
+	//setup_sd_logging();
 
 	setup_rtc();
 
@@ -62,7 +65,7 @@ void loop()
 
 	sprintf(dataString, "%d/%d/%d %02d:%02d:%02d,%.0f,%d,%.2f,%.2f,%.2f", tmYearToCalendar(currentTime.Year), currentTime.Month, currentTime.Day, currentTime.Hour, currentTime.Minute, currentTime.Second, temperature, floatMode, leisureVoltage, carVoltage, solarVoltage);
 
-	writeToLog(logFileName, dataString);
+	//writeToLog(logFileName, dataString);
 }
 
 void getCurrentTime()

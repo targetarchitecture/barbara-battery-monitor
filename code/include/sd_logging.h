@@ -3,7 +3,7 @@
 #include <SPI.h>
 #include <SD.h>
 #include <Adafruit_GFX.h>
-#include "Adafruit_EPD.h"
+#include <Adafruit_EPD.h>
 
 extern Adafruit_SSD1675 EPD;
 

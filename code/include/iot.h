@@ -1,11 +1,15 @@
 #pragma once
 #include <Arduino.h>
 #include <config.h>
-#include "AdafruitIO_WiFi.h"
+
+#include <ESP8266WiFi.h>
+#include <ESP8266WiFiMulti.h>
 
 void loop_io();
 
 extern void writeToLog(String dataString);
+
+extern ESP8266WiFiMulti wifiMulti;
 
 extern volatile float leisureVoltage;
 extern volatile float carVoltage;

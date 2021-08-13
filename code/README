@@ -1,10 +1,23 @@
 
 i2c addresses
 
+0x10 - PA1010D - GPS
 0x18 - MCP9808 - temperature 
 0x39 - APDS-9960 - colour 
 0x40 - INA219 - leisure battery voltage
 0x41 - INA219 - solar battery voltage
 0x44 - INA219 - car battery voltage
 0x68 - DS1307 - Real-Time Clock 
+
+pins 
+
+A0 - 
+D1 - SCL 
+D2 - SDA 
+D3 - 
+D4 - SD Card chip select
+D5 - SPI SCK
+D6 - SPI MISO
+D7 - SPI MOSI
+D8 - EPD cip select
 
