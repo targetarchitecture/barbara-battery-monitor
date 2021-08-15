@@ -7,7 +7,7 @@ void setup_io();
 
 extern void writeToLog(String dataString);
 
-extern ESP8266WiFiMulti wifiMulti;
+extern WiFiMulti wifiMulti;
 
 extern volatile float leisureVoltage;
 extern volatile float carVoltage;

@@ -3,13 +3,12 @@
 #define SEND_EVERY_MS 60000
 unsigned long lastUpdate;
 
-void setup_io()
+void setup_iot()
 {
-  WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP("SSID", "PASSWORD");
+
 }
 
-void loop_io()
+void loop_iot()
 {
 
   // wait for WiFi connection
@@ -22,7 +21,7 @@ void loop_io()
     HTTPClient https;
 
     Serial.print("[HTTPS] begin...\n");
-    
+
     if (https.begin(*client, "https://jigsaw.w3.org/HTTP/connection.html"))
     { // HTTPS
 

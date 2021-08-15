@@ -1,5 +1,6 @@
 #include "wifi.h"
 
+WiFiMulti wifiMulti;
 
 void setup_wifi()
 {
@@ -9,7 +10,7 @@ void setup_wifi()
 
   Serial.println("Connecting Wifi...");
 
-  if (wifiMulti.run() == WL_CONNECTED)
+  if (wifiMulti.run(1000) == WL_CONNECTED)
   {
     Serial.println("");
     Serial.println("WiFi connected");
@@ -20,7 +21,7 @@ void setup_wifi()
 
 void loop_wifi()
 {
-  if (wifiMulti.run() != WL_CONNECTED)
+  if (wifiMulti.run(1000) != WL_CONNECTED)
   {
     Serial.println("WiFi not connected!");
   }

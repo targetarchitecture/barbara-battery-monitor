@@ -1,11 +1,9 @@
 #include <Arduino.h>
 #include <voltages.h>
-#include <epd.h>
 #include <wifi.h>
 #include <config.h>
 #include <iot.h>
 #include <ntp.h>
-#include <sd_logging.h>
 #include <colour.h>
 #include <rtc.h>
 #include <temperature.h>
