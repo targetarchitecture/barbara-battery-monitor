@@ -2,6 +2,7 @@
 #include <voltages.h>
 #include <epd.h>
 #include <wifi.h>
+#include <config.h>
 #include <iot.h>
 #include <ntp.h>
 #include <sd_logging.h>

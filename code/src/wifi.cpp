@@ -1,6 +1,5 @@
 #include "wifi.h"
 
-ESP8266WiFiMulti wifiMulti;
 
 void setup_wifi()
 {

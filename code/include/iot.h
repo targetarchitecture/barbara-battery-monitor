@@ -2,18 +2,6 @@
 #include <Arduino.h>
 #include <config.h>
 
-#include <ESP8266WiFi.h>
-#include <ESP8266WiFiMulti.h>
-<<<<<<< Updated upstream
-=======
-
-#include <ESP8266HTTPClient.h>
-
-#include <WiFiClientSecureBearSSL.h>
-
-ESP8266WiFiMulti WiFiMulti;
->>>>>>> Stashed changes
-
 void loop_io();
 void setup_io();
 
