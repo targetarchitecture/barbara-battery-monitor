@@ -3,6 +3,14 @@
 #define SEND_EVERY_MS 60000
 unsigned long lastUpdate;
 
+<<<<<<< Updated upstream
+=======
+void setup_io()
+{
+  
+}
+
+>>>>>>> Stashed changes
 void loop_io()
 {
   if (wifiMulti.run() == WL_CONNECTED)

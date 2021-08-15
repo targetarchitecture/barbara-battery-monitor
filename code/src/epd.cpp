@@ -7,6 +7,7 @@ Adafruit_SSD1675 EPD(250, 122, EPD_DC, EPD_RST, EPD_CS, -1, EPD_BUSY);
 void setup_epd()
 {
   EPD.begin();
+<<<<<<< Updated upstream
   // EPD.clearBuffer();
   // EPD.setCursor(0, 0);
   // EPD.setTextColor(EPD_BLACK);
@@ -20,6 +21,8 @@ void setup_epd()
   // EPD.drawBitmap(50, 100, epd_bitmap_van, 64, 60, 0);
 
   // EPD.display();
+=======
+>>>>>>> Stashed changes
 }
 
 void loop_epd()
