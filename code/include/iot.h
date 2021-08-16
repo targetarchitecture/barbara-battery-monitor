@@ -1,11 +1,7 @@
 #pragma once
 #include <Arduino.h>
-#include <config.h>
-
-void loop_io();
-void setup_io();
-
-extern void writeToLog(String dataString);
+#include <WiFi.h>
+#include <WiFiMulti.h>
 
 extern WiFiMulti wifiMulti;
 
@@ -17,3 +13,8 @@ extern volatile float temperature;
 extern volatile double latitude;
 extern volatile double longitude;
 extern volatile double elevation;
+
+void loop_io();
+void setup_io();
+
+extern void writeToLog(String dataString);
