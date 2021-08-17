@@ -30,10 +30,13 @@ void loop_gps() // run over and over again
     GPSModule.encode(GPSSerial.read());
   }
 
-  Serial.print("LAT=");
-  Serial.println(GPSModule.location.lat(), 6);
-  Serial.print("LONG=");
-  Serial.println(GPSModule.location.lng(), 6);
-  Serial.print("ALT=");
-  Serial.println(GPSModule.altitude.meters());
+  if (GPSModule.location.isValid() == true)
+  {
+    Serial.print("LAT=");
+    Serial.println(GPSModule.location.lat(), 6);
+    Serial.print("LONG=");
+    Serial.println(GPSModule.location.lng(), 6);
+    Serial.print("ALT=");
+    Serial.println(GPSModule.altitude.meters());
+  }
 }
