@@ -2,7 +2,7 @@
 //#include <voltages.h>
 #include <wificonnect.h>
 //#include <config.h>
-//#include <iot.h>
+#include <iot.h>
 #include <ntp.h>
 #include <gpsModule.h>
 //#include <colour.h>
@@ -29,12 +29,6 @@ void setup()
 
 	setup_gps();
 
-	//setup_epd();
-
-	//setup_sd_logging();
-
-	//setup_rtc();
-
 	//setup_color();
 
 	//setup_temperature();
@@ -44,7 +38,6 @@ void setup()
 
 void loop()
 {
-	delay(1000);
 
 	loop_wifi();
 
@@ -52,7 +45,7 @@ void loop()
 
 	loop_gps();
 
-	//loop_io();
+	loop_iot();
 
 	//	loop_color();
 
@@ -60,13 +53,5 @@ void loop()
 
 	//loop_voltages();
 
-	//loop_epd();
-
-	//eprintDateTime(dateTime);
-
-	//	char dataString[1000];
-
-	//sprintf(dataString, "%d/%d/%d %02d:%02d:%02d,%.0f,%d,%.2f,%.2f,%.2f", tmYearToCalendar(currentTime.Year), currentTime.Month, currentTime.Day, currentTime.Hour, currentTime.Minute, currentTime.Second, temperature, floatMode, leisureVoltage, carVoltage, solarVoltage);
-
-	//writeToLog(logFileName, dataString);
+	delay(60 * 1000);
 }

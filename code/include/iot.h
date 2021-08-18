@@ -4,6 +4,7 @@
 #include <WiFiMulti.h>
 #include <WiFiClientSecure.h>
 #include <config.h>
+#include <ArduinoJson.h>
 
 extern WiFiMulti wifiMulti;
 
@@ -16,7 +17,6 @@ extern volatile double latitude;
 extern volatile double longitude;
 extern volatile double elevation;
 
-void loop_io();
-void setup_io();
+void loop_iot();
 
 extern void writeToLog(String dataString);

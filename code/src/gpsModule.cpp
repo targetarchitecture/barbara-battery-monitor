@@ -11,14 +11,17 @@ void setup_gps()
   GPSSerial.begin(9600);
 
 //turn on RMC (recommended minimum) and GGA (fix data) including altitude
-#define PMTK_SET_NMEA_OUTPUT_RMCGGA "$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28"
-  GPSSerial.write(PMTK_SET_NMEA_OUTPUT_RMCGGA);
+// #define PMTK_SET_NMEA_OUTPUT_RMCGGA "$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28"
+//   GPSSerial.write(PMTK_SET_NMEA_OUTPUT_RMCGGA);
+//   GPSSerial.flush();
 
-  // uncomment this line to turn on RMC (recommended minimum) and GGA (fix data) including altitude
-  // GPS.sendCommand(PMTK_SET_NMEA_OUTPUT_RMCGGA);
+// #define PMTK_SET_NMEA_UPDATE_10Sec "$PMTK220,10000*2F"
+//   GPSSerial.write(PMTK_SET_NMEA_UPDATE_10Sec); // 10 sec update rate
+//   GPSSerial.flush();
 
-#define PMTK_SET_NMEA_UPDATE_10Sec "$PMTK220,10000*2F"
-  GPSSerial.write(PMTK_SET_NMEA_UPDATE_10Sec); // 10 sec update rate
+  delay(1000);
+
+  loop_gps();
 
   delay(1000);
 }
@@ -38,5 +41,28 @@ void loop_gps() // run over and over again
     Serial.println(GPSModule.location.lng(), 6);
     Serial.print("ALT=");
     Serial.println(GPSModule.altitude.meters());
+  }
+
+  Serial.print("GPSModule.location.isUpdated=");
+  Serial.println(GPSModule.location.isUpdated());
+
+  Serial.print("GPSModule.location.age=");
+  Serial.println(GPSModule.location.age());
+
+  if (GPSModule.location.isValid() == true)
+  {
+    // if ((GPSModule.location.age() - millis()) > 1000 * 60 * 2)
+    // {
+    //   latitude = 0;
+    //   longitude = 0;
+    //   elevation = 0;
+    // }
+    // else
+    // {
+    latitude = GPSModule.location.lat();
+    longitude = GPSModule.location.lng();
+    elevation = GPSModule.altitude.meters();
+
+    //}
   }
 }

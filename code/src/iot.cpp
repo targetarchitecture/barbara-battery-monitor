@@ -1,44 +1,67 @@
 #include "iot.h"
 
-WiFiClientSecure client;
-
-void setup_iot()
-{
-  wifiMulti.run();
-}
-
 void loop_iot()
 {
   if (wifiMulti.run() == WL_CONNECTED)
   {
+    WiFiClientSecure client;
+    client.setInsecure(); //skip verification
 
-    client.setInsecure();//skip verification
-    
-  if (!client.connect(server, 443))
-    Serial.println("Connection failed!");
-  else {
-    Serial.println("Connected to server!");
-    // Make a HTTP request:
-    client.println("GET https://www.howsmyssl.com/a/check HTTP/1.0");
-    client.println("Host: www.howsmyssl.com");
-    client.println("Connection: close");
-    client.println();
-
-    while (client.connected()) {
-      String line = client.readStringUntil('\n');
-      if (line == "\r") {
-        Serial.println("headers received");
-        break;
-      }
+    Serial.print("connect: ");
+    Serial.println(LOGIC_APP_HOST);
+    while (!client.connect(LOGIC_APP_HOST, 443))
+    {
+      Serial.print(".");
     }
-    // if there are incoming bytes available
-    // from the server, read them and print them:
-    while (client.available()) {
-      char c = client.read();
-      Serial.write(c);
+    Serial.println("Connected");
+
+    DynamicJsonDocument doc(1024);
+
+    doc["leisureVoltage"] = leisureVoltage;
+    doc["carVoltage"] = carVoltage;
+    doc["solarVoltage"] = solarVoltage;
+    doc["temperature"] = temperature;
+    doc["latitude"] = latitude;
+    doc["longitude"] = longitude;
+    doc["elevation"] = elevation;
+    doc["floatMode"] = floatMode;
+
+    String postData;
+
+    serializeJson(doc, postData);
+
+    String path = LOGIC_APP_PATH;
+    String msg = "POST " + path + " HTTP/1.1\r\n"
+                                  "Host: " +
+                 LOGIC_APP_HOST + "\r\n"
+                                  "" +
+                 "Content-Type: application/json\r\n"
+                 "Content-Length: " +
+                 postData.length() + "\r\n"
+                                     "\r\n" +
+                 postData;
+
+    client.print(msg);
+    Serial.print(msg);
+
+    Serial.print("\n*** Request sent, receiving response...");
+
+    while (!!!client.available())
+    {
+      delay(50);
+      Serial.print(".");
     }
 
+    Serial.println();
+    Serial.println("Got response");
+
+    while (client.available())
+    {
+      Serial.write(client.read());
+    }
+
+    Serial.println();
+    Serial.println("closing connection");
     client.stop();
-
   }
 }
