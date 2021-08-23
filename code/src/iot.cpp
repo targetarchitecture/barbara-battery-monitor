@@ -2,6 +2,9 @@
 
 void loop_iot()
 {
+  //wait for the wifi semaphore flag to become available
+  xSemaphoreTake(wifiSemaphore, portMAX_DELAY);
+
   if (wifiMulti.run() == WL_CONNECTED)
   {
     WiFiClientSecure client;
@@ -21,9 +24,9 @@ void loop_iot()
     doc["carVoltage"] = carVoltage;
     doc["solarVoltage"] = solarVoltage;
     doc["temperature"] = temperature;
-    doc["latitude"] = latitude;
-    doc["longitude"] = longitude;
-    doc["elevation"] = elevation;
+    doc["latitude"] = GPSModule.location.lat();
+    doc["longitude"] = GPSModule.location.lat();
+    doc["elevation"] = GPSModule.altitude.meters();
     doc["floatMode"] = floatMode;
 
     String postData;
@@ -64,4 +67,7 @@ void loop_iot()
     Serial.println("closing connection");
     client.stop();
   }
+
+  //give back the wifi flag for the next task
+  xSemaphoreGive(wifiSemaphore);
 }

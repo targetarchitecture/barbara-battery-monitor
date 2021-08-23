@@ -4,5 +4,5 @@
 #include <WiFiMulti.h>
 #include <config.h>
 
-void loop_wifi();
+//void loop_wifi();
 void setup_wifi();

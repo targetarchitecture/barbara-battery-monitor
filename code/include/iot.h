@@ -5,18 +5,23 @@
 #include <WiFiClientSecure.h>
 #include <config.h>
 #include <ArduinoJson.h>
+#include <TinyGPS++.h>
 
 extern WiFiMulti wifiMulti;
+
+extern TinyGPSPlus GPSModule;
+
+extern SemaphoreHandle_t wifiSemaphore;
 
 extern volatile float leisureVoltage;
 extern volatile float carVoltage;
 extern volatile float solarVoltage;
 extern volatile bool floatMode;
 extern volatile float temperature;
-extern volatile double latitude;
-extern volatile double longitude;
-extern volatile double elevation;
+// extern volatile double latitude;
+// extern volatile double longitude;
+// extern volatile double elevation;
 
 void loop_iot();
 
-extern void writeToLog(String dataString);
+//extern void writeToLog(String dataString);

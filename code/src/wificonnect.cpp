@@ -7,6 +7,7 @@ void setup_wifi()
   WiFi.mode(WIFI_STA);
   wifiMulti.addAP(WIFI_SSID_1, WIFI_PASS_1);
   wifiMulti.addAP(WIFI_SSID_2, WIFI_PASS_2);
+  wifiMulti.addAP(WIFI_SSID_3, WIFI_PASS_3);
 
   Serial.println("Connecting Wifi...");
 
@@ -19,10 +20,10 @@ void setup_wifi()
   }
 }
 
-void loop_wifi()
-{
-  if (wifiMulti.run(1000) != WL_CONNECTED)
-  {
-    Serial.println("WiFi not connected!");
-  }
-}
+// void loop_wifi()
+// {
+//   if (wifiMulti.run(1000) != WL_CONNECTED)
+//   {
+//     Serial.println("WiFi not connected!");
+//   }
+// }
