@@ -3,6 +3,7 @@
 #include <iot.h>
 #include <gpsModule.h>
 #include <mqtt.h>
+#include <ntp.h>
 #include "OTA.h"
 //#include <colour.h>
 //#include <temperature.h>
@@ -38,6 +39,8 @@ void setup()
 	xSemaphoreGive(wifiSemaphore);
 
 	setupOTA("Barbara");
+
+	setup_ntp();
 
 	//setup_color();
 

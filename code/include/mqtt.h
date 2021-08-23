@@ -17,3 +17,9 @@ extern SemaphoreHandle_t wifiSemaphore;
 
 void setup_mqtt();
 void loop_mqtt();
+
+#define MQTT_IP_TOPIC  "barbara/ip"
+#define MQTT_LAT_TOPIC "barbara/location/lat"
+#define MQTT_LON_TOPIC "barbara/location/lon"
+#define MQTT_AGE_TOPIC "barbara/age"
+#define MQTT_SATELITE_TOPIC "barbara/satelites"
