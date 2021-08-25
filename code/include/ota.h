@@ -2,6 +2,7 @@
 #include <ESPmDNS.h>
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
+#include <Streaming.h>
 
 extern SemaphoreHandle_t wifiSemaphore;
 

@@ -1,13 +1,8 @@
-#include <Arduino.h>
 #include "ntp.h"
 
 void setup_ntp(){
      configTime(gmtOffset_sec, daylightOffset_sec, ntp_server);
 }
-
-// void loop_ntp(){
-//     printLocalTime();
-// }
 
 void printLocalTime(){
   struct tm timeinfo;

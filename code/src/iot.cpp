@@ -10,11 +10,16 @@ void loop_iot()
     WiFiClientSecure client;
     client.setInsecure(); //skip verification
 
-    Serial.print("connect: ");
-    Serial.println(LOGIC_APP_HOST);
+    // Serial.print("connect: ");
+    // Serial.println(LOGIC_APP_HOST);
+
+	//Serial << F("\n" __FILE__ " " __DATE__ " " __TIME__ "\n");
+	Serial << "connect: " << LOGIC_APP_HOST << endl;
+
+
     while (!client.connect(LOGIC_APP_HOST, 443))
     {
-      Serial.print(".");
+    	Serial << ".";
     }
     Serial.println("Connected");
 
@@ -27,7 +32,7 @@ void loop_iot()
     doc["latitude"] = GPSModule.location.lat();
     doc["longitude"] = GPSModule.location.lat();
     doc["elevation"] = GPSModule.altitude.meters();
-    doc["floatMode"] = floatMode;
+    doc["colour"] = colour;
 
     String postData;
 
@@ -45,6 +50,7 @@ void loop_iot()
                  postData;
 
     client.print(msg);
+    
     Serial.print(msg);
 
     Serial.print("\n*** Request sent, receiving response...");

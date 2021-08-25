@@ -9,21 +9,13 @@ void setup_wifi()
   wifiMulti.addAP(WIFI_SSID_2, WIFI_PASS_2);
   wifiMulti.addAP(WIFI_SSID_3, WIFI_PASS_3);
 
-  Serial.println("Connecting Wifi...");
+  Serial << "Connecting Wifi..." << endl;
 
   if (wifiMulti.run(10000) == WL_CONNECTED)
   {
-    Serial.println("");
-    Serial.println("WiFi connected");
-    Serial.println("IP address: ");
-    Serial.println(WiFi.localIP());
+    Serial << endl
+           << "WiFi connected" << endl
+           << "IP address: " << WiFi.localIP() << endl;
   }
 }
 
-// void loop_wifi()
-// {
-//   if (wifiMulti.run(1000) != WL_CONNECTED)
-//   {
-//     Serial.println("WiFi not connected!");
-//   }
-// }

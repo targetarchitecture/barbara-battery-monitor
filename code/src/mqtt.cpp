@@ -10,13 +10,8 @@ double last_lng = 0;
 
 void setup_mqtt()
 {
-
     //wait for the wifi semaphore flag to become available
     xSemaphoreTake(wifiSemaphore, portMAX_DELAY);
-
-    // //MQTT definitions
-    // WiFiClient c;
-    // PubSubClient MQTTClient(c);
 
     MQTTClient.setServer(MQTT_SERVER, 1883);
 

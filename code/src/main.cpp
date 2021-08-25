@@ -1,11 +1,13 @@
 #include <Arduino.h>
+#include <config.h>
 #include <wificonnect.h>
 #include <iot.h>
 #include <gpsModule.h>
 #include <mqtt.h>
 #include <ntp.h>
-#include "OTA.h"
-//#include <colour.h>
+#include <OTA.h>
+#include <colour.h>
+#include <Streaming.h>
 //#include <temperature.h>
 //#include <voltages.h>
 
@@ -13,7 +15,7 @@ volatile float leisureVoltage = 0;
 volatile float carVoltage = 0;
 volatile float solarVoltage = 0;
 volatile float temperature = 0;
-volatile bool floatMode = false;
+volatile bool colour;
 
 SemaphoreHandle_t wifiSemaphore;
 
@@ -29,8 +31,7 @@ void setup()
 	btStop();
 
 	Serial.begin(115200);
-	Serial.println("");
-	Serial.println("");
+	Serial << endl << endl;
 
 	setup_wifi();
 
@@ -42,20 +43,22 @@ void setup()
 
 	setup_ntp();
 
-	//setup_color();
+	setup_colour();
 
 	//setup_temperature();
 
 	//setup_voltages();
 
 	//start task to read an send rotary information every 500ms
-	xTaskCreate(&mqtt_task, "mqtt_task", 17000, NULL, 0, NULL);
-	xTaskCreate(&IoT_task, "iot_task", 17000, NULL, 0, NULL);
-	xTaskCreate(&GPS_task, "gps_task", 17000, NULL, 0, NULL);
+	//xTaskCreate(&mqtt_task, "mqtt_task", 17000, NULL, 0, NULL);
+	//xTaskCreate(&IoT_task, "iot_task", 17000, NULL, 0, NULL);
+	//xTaskCreate(&GPS_task, "gps_task", 17000, NULL, 0, NULL);
 }
 
 void loop()
 {
+	loop_colour();
+
 	//	loop_color();
 
 	//	loop_temperature();

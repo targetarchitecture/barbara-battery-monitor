@@ -1,8 +1,8 @@
-#pragma once
-#include <Arduino.h>
+//#pragma once
+#include <config.h>
 #include <WiFi.h>
 #include <WiFiMulti.h>
-#include <config.h>
+#include <Streaming.h>
 
 //void loop_wifi();
 void setup_wifi();

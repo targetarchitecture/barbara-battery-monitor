@@ -1,11 +1,11 @@
-#pragma once
-#include <Arduino.h>
+//#pragma once
+#include <config.h>
+#include <TinyGPS++.h>
+#include <ArduinoJson.h>
 #include <WiFi.h>
 #include <WiFiMulti.h>
 #include <WiFiClientSecure.h>
-#include <config.h>
-#include <ArduinoJson.h>
-#include <TinyGPS++.h>
+#include <Streaming.h>
 
 extern WiFiMulti wifiMulti;
 
@@ -16,12 +16,8 @@ extern SemaphoreHandle_t wifiSemaphore;
 extern volatile float leisureVoltage;
 extern volatile float carVoltage;
 extern volatile float solarVoltage;
-extern volatile bool floatMode;
+extern volatile bool colour;
 extern volatile float temperature;
-// extern volatile double latitude;
-// extern volatile double longitude;
-// extern volatile double elevation;
 
 void loop_iot();
 
-//extern void writeToLog(String dataString);

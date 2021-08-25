@@ -1,7 +1,8 @@
-#pragma once
-#include <SparkFun_APDS9960.h>
+//#pragma once
+#include "Melopero_APDS9960.h"
 
-void loop_color();
-void setup_color();
+//void printColor(float r, float g, float b, float c);
+void printColor(uint16_t r, uint16_t g, uint16_t b, uint16_t c);
+void setup_colour();
+void loop_colour();
 
-extern volatile bool floatMode;

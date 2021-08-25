@@ -1,13 +1,13 @@
-#pragma once
-#include <Arduino.h>
+//#pragma once
+#include <config.h>
 #include <PubSubClient.h>
 #include <WiFi.h>
 #include <WiFiMulti.h>
 #include <WiFiClientSecure.h>
-#include <config.h>
 #include <ArduinoJson.h>
 #include <TinyGPS++.h>
 #include <sstream>
+#include <Streaming.h>
 
 extern WiFiMulti wifiMulti;
 

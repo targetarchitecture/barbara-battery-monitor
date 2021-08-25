@@ -1,77 +1,43 @@
-#include <Arduino.h>
 #include "colour.h"
 
-// Global Variables
-SparkFun_APDS9960 apds = SparkFun_APDS9960();
+Melopero_APDS9960 device;
 
-uint16_t ambient_light = 0;
-uint16_t red_light = 0;
-uint16_t green_light = 0;
-uint16_t blue_light = 0;
-
-void setup_color()
+void setup_colour()
 {
-  // Initialize Serial port
-  Serial.println();
-  Serial.println(F("--------------------------------"));
-  Serial.println(F("SparkFun APDS-9960 - ColorSensor"));
-  Serial.println(F("--------------------------------"));
+    Serial.println(device.init());  // Initialize the comunication library
+    Serial.println(device.reset()); // Reset all interrupt settings and power off the device
 
-  // Initialize APDS-9960 (configure I2C and initial values)
-  if (apds.init())
-  {
-    Serial.println(F("APDS-9960 initialization complete"));
-  }
-  else
-  {
-    Serial.println(F("Something went wrong during APDS-9960 init!"));
-  }
+    Serial.println(device.enableAlsEngine());          // enable the color/ALS engine
+    Serial.println(device.setAlsIntegrationTime(450)); // set the color engine integration time
+    Serial.println(device.updateSaturation());         // updates the saturation value, stored in device.alsSaturation
 
-  // Start running the APDS-9960 light sensor (no interrupts)
-  if (apds.enableLightSensor(false))
-  {
-    Serial.println(F("Light sensor is now running"));
-  }
-  else
-  {
-    Serial.println(F("Something went wrong during light sensor init!"));
-  }
+    // The device.alsSaturation variable represents the maximum value for the rgbc variables.
+    // If you want a normalized value of the rgbc variables you have to divide them by the
+    // alsSaturation.
+    // device.red/green/blue/clear <-> Raw color value for red/green/blue/clear
+    // device.alsSaturation <-> saturation value for rgbc (maximum value they can assume)
+    // float norm_red = (float) device.red / (float) device.alsSaturation <-> normalized red value in range [0 - 1]
 
-  // Wait for initialization and calibration to finish
-  delay(500);
+    Serial.println(device.wakeUp()); // wake up the device
 }
 
-void loop_color()
+void loop_colour()
 {
-  // Read the light levels (ambient, red, green, blue)
-  if (!apds.readAmbientLight(ambient_light) ||
-      !apds.readRedLight(red_light) ||
-      !apds.readGreenLight(green_light) ||
-      !apds.readBlueLight(blue_light))
-  {
-    Serial.println("Error reading light values");
-  }
-  else
-  {
-    Serial.print("Ambient: ");
-    Serial.print(ambient_light);
-    Serial.print(" Red: ");
-    Serial.print(red_light);
-    Serial.print(" Green: ");
-    Serial.print(green_light);
-    Serial.print(" Blue: ");
-    Serial.println(blue_light);
 
-    if (blue_light > 5000)
-    {
-      floatMode = true;
-    }
-    else
-    {
-      floatMode = false;
-    }
-  }
+    device.updateColorData(); // update the values stored in device.red/green/blue/clear
 
-  // Wait 1 second before next reading
-  delay(1000);
+    Serial.println("Raw color data:");
+    printColor(device.red, device.green, device.blue, device.clear); // print raw values
+}
+
+void printColor(uint16_t r, uint16_t g, uint16_t b, uint16_t c)
+{
+    Serial.print("R: ");
+    Serial.print(r);
+    Serial.print(" G: ");
+    Serial.print(g);
+    Serial.print(" B: ");
+    Serial.print(b);
+    Serial.print(" C: ");
+    Serial.println(c);
 }
