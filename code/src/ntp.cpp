@@ -1,12 +1,16 @@
 #include "ntp.h"
 
-void setup_ntp(){
-     configTime(gmtOffset_sec, daylightOffset_sec, ntp_server);
+void setup_ntp()
+{
+  configTime(gmtOffset_sec, daylightOffset_sec, ntp_server);
 }
 
-void printLocalTime(){
+void printLocalTime()
+{
+#ifdef SERIAL_OUPUT
   struct tm timeinfo;
-  if(!getLocalTime(&timeinfo)){
+  if (!getLocalTime(&timeinfo))
+  {
     Serial.println("Failed to obtain time");
     return;
   }
@@ -30,10 +34,11 @@ void printLocalTime(){
 
   Serial.println("Time variables");
   char timeHour[3];
-  strftime(timeHour,3, "%H", &timeinfo);
+  strftime(timeHour, 3, "%H", &timeinfo);
   Serial.println(timeHour);
   char timeWeekDay[10];
-  strftime(timeWeekDay,10, "%A", &timeinfo);
+  strftime(timeWeekDay, 10, "%A", &timeinfo);
   Serial.println(timeWeekDay);
   Serial.println();
+#endif
 }

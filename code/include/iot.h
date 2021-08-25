@@ -12,12 +12,12 @@ extern WiFiMulti wifiMulti;
 extern TinyGPSPlus GPSModule;
 
 extern SemaphoreHandle_t wifiSemaphore;
+extern SemaphoreHandle_t uartSemaphore;
 
 extern volatile float leisureVoltage;
 extern volatile float carVoltage;
 extern volatile float solarVoltage;
-extern volatile bool colour;
+extern volatile uint16_t colour[4];
 extern volatile float temperature;
 
 void loop_iot();
-

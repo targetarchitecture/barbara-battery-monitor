@@ -1,4 +1,3 @@
-//#pragma once
 #include <TinyGPS++.h>
 
 // what's the name of the hardware serial port?

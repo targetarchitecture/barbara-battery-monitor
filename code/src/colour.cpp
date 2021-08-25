@@ -4,40 +4,34 @@ Melopero_APDS9960 device;
 
 void setup_colour()
 {
-    Serial.println(device.init());  // Initialize the comunication library
-    Serial.println(device.reset()); // Reset all interrupt settings and power off the device
+    //wait for the i2c semaphore flag to become available
+    xSemaphoreTake(i2cSemaphore, portMAX_DELAY);
 
-    Serial.println(device.enableAlsEngine());          // enable the color/ALS engine
-    Serial.println(device.setAlsIntegrationTime(450)); // set the color engine integration time
-    Serial.println(device.updateSaturation());         // updates the saturation value, stored in device.alsSaturation
+    device.init();  // Initialize the comunication library
+    device.reset(); // Reset all interrupt settings and power off the device
 
-    // The device.alsSaturation variable represents the maximum value for the rgbc variables.
-    // If you want a normalized value of the rgbc variables you have to divide them by the
-    // alsSaturation.
-    // device.red/green/blue/clear <-> Raw color value for red/green/blue/clear
-    // device.alsSaturation <-> saturation value for rgbc (maximum value they can assume)
-    // float norm_red = (float) device.red / (float) device.alsSaturation <-> normalized red value in range [0 - 1]
+    device.enableAlsEngine();          // enable the color/ALS engine
+    device.setAlsIntegrationTime(450); // set the color engine integration time
+    device.updateSaturation();         // updates the saturation value, stored in device.alsSaturation
 
-    Serial.println(device.wakeUp()); // wake up the device
+    device.wakeUp(); // wake up the device
+
+    //give back the i2c flag for the next task
+    xSemaphoreGive(i2cSemaphore);
 }
 
 void loop_colour()
 {
+    //wait for the i2c semaphore flag to become available
+    xSemaphoreTake(i2cSemaphore, portMAX_DELAY);
 
     device.updateColorData(); // update the values stored in device.red/green/blue/clear
 
-    Serial.println("Raw color data:");
-    printColor(device.red, device.green, device.blue, device.clear); // print raw values
-}
+    //give back the i2c flag for the next task
+    xSemaphoreGive(i2cSemaphore);
 
-void printColor(uint16_t r, uint16_t g, uint16_t b, uint16_t c)
-{
-    Serial.print("R: ");
-    Serial.print(r);
-    Serial.print(" G: ");
-    Serial.print(g);
-    Serial.print(" B: ");
-    Serial.print(b);
-    Serial.print(" C: ");
-    Serial.println(c);
+    colour[0] = device.red;
+    colour[1] = device.green;
+    colour[2] = device.blue;
+    colour[3] = device.clear;
 }

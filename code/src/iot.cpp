@@ -10,18 +10,22 @@ void loop_iot()
     WiFiClientSecure client;
     client.setInsecure(); //skip verification
 
-    // Serial.print("connect: ");
-    // Serial.println(LOGIC_APP_HOST);
+    xSemaphoreTake(uartSemaphore, portMAX_DELAY);
 
-	//Serial << F("\n" __FILE__ " " __DATE__ " " __TIME__ "\n");
-	Serial << "connect: " << LOGIC_APP_HOST << endl;
-
+#ifdef SERIAL_OUPUT
+    Serial << "connect: " << LOGIC_APP_HOST << endl;
+#endif
 
     while (!client.connect(LOGIC_APP_HOST, 443))
     {
-    	Serial << ".";
+      delay(50);
+#ifdef SERIAL_OUPUT
+      Serial << ".";
+#endif
     }
+#ifdef SERIAL_OUPUT
     Serial.println("Connected");
+#endif
 
     DynamicJsonDocument doc(1024);
 
@@ -30,9 +34,14 @@ void loop_iot()
     doc["solarVoltage"] = solarVoltage;
     doc["temperature"] = temperature;
     doc["latitude"] = GPSModule.location.lat();
-    doc["longitude"] = GPSModule.location.lat();
+    doc["longitude"] = GPSModule.location.lng();
     doc["elevation"] = GPSModule.altitude.meters();
-    doc["colour"] = colour;
+
+    JsonArray array = doc.createNestedArray("colour");
+    array.add(colour[0]);
+    array.add(colour[1]);
+    array.add(colour[2]);
+    array.add(colour[3]);
 
     String postData;
 
@@ -50,28 +59,41 @@ void loop_iot()
                  postData;
 
     client.print(msg);
-    
-    Serial.print(msg);
 
+#ifdef SERIAL_OUPUT
+    Serial.print(msg);
     Serial.print("\n*** Request sent, receiving response...");
+#endif
 
     while (!!!client.available())
     {
       delay(50);
+#ifdef SERIAL_OUPUT
       Serial.print(".");
+#endif
     }
 
+#ifdef SERIAL_OUPUT
     Serial.println();
     Serial.println("Got response");
+#endif
 
     while (client.available())
     {
-      Serial.write(client.read());
+      auto X = client.read();
+#ifdef SERIAL_OUPUT
+      Serial.write(X);
+#endif
     }
 
+#ifdef SERIAL_OUPUT
     Serial.println();
     Serial.println("closing connection");
+#endif
+
     client.stop();
+
+    xSemaphoreGive(uartSemaphore);
   }
 
   //give back the wifi flag for the next task

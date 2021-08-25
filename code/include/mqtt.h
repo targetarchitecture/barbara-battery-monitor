@@ -15,11 +15,17 @@ extern TinyGPSPlus GPSModule;
 
 extern SemaphoreHandle_t wifiSemaphore;
 
+extern volatile float temperature;
+extern volatile uint16_t colour[4];
+
 void setup_mqtt();
 void loop_mqtt();
 
+#define MQTT_CLIENTID "Barbara"
 #define MQTT_IP_TOPIC  "barbara/ip"
 #define MQTT_LAT_TOPIC "barbara/location/lat"
 #define MQTT_LON_TOPIC "barbara/location/lon"
 #define MQTT_AGE_TOPIC "barbara/age"
 #define MQTT_SATELITE_TOPIC "barbara/satelites"
+#define MQTT_TEMP_TOPIC "barbara/temp"
+#define MQTT_COLOUR_TOPIC "barbara/colour"

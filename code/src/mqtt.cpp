@@ -7,6 +7,8 @@ PubSubClient MQTTClient(c);
 uint32_t last_satellites = 0;
 double last_lat = 0;
 double last_lng = 0;
+float last_temperature = 0;
+long last_colour = 0;
 
 void setup_mqtt()
 {
@@ -17,12 +19,14 @@ void setup_mqtt()
 
     if (wifiMulti.run() == WL_CONNECTED)
     {
+#ifdef SERIAL_OUPUT
         Serial.println("Connecting to MQTT server");
-
+#endif
         if (MQTTClient.connect(MQTT_CLIENTID, MQTT_USERNAME, MQTT_KEY))
         {
+#ifdef SERIAL_OUPUT
             Serial.println("Connected to MQTT server");
-
+#endif
             MQTTClient.publish(MQTT_IP_TOPIC, WiFi.localIP().toString().c_str(), true);
         }
     }
@@ -38,10 +42,11 @@ void loop_mqtt()
 
     if (wifiMulti.run() == WL_CONNECTED)
     {
-        //Serial.println("connect mqtt...");
         if (MQTTClient.connect(MQTT_CLIENTID, MQTT_USERNAME, MQTT_KEY))
         {
-            //Serial.println("Connected to MQTT server");
+#ifdef SERIAL_OUPUT
+            Serial.println("Connected to MQTT server");
+#endif
             {
                 std::stringstream payload;
                 payload << GPSModule.location.age();
@@ -55,6 +60,8 @@ void loop_mqtt()
                     payload << GPSModule.satellites.value();
                     MQTTClient.publish(MQTT_SATELITE_TOPIC, payload.str().c_str(), true);
                 }
+
+                last_satellites = GPSModule.satellites.value();
             }
 
             if (GPSModule.location.age() < 20000)
@@ -66,7 +73,10 @@ void loop_mqtt()
                         payload << GPSModule.location.lat();
                         MQTTClient.publish(MQTT_LAT_TOPIC, payload.str().c_str(), true);
                     }
+
+                    last_lat = GPSModule.location.lat();
                 }
+
                 if (last_lng != GPSModule.location.lng())
                 {
                     {
@@ -74,12 +84,36 @@ void loop_mqtt()
                         payload << GPSModule.location.lng();
                         MQTTClient.publish(MQTT_LON_TOPIC, payload.str().c_str(), true);
                     }
+
+                    last_lng = GPSModule.location.lng();
                 }
             }
             else
             {
                 MQTTClient.publish(MQTT_LAT_TOPIC, "NO GPS", true);
                 MQTTClient.publish(MQTT_LON_TOPIC, "NO GPS", true);
+            }
+
+            if (last_temperature != temperature)
+            {
+                {
+                    std::stringstream payload;
+                    payload << temperature;
+                    MQTTClient.publish(MQTT_TEMP_TOPIC, payload.str().c_str(), true);
+                }
+
+                last_temperature = temperature;
+            }
+
+            if (last_colour != colour[0] + colour[1] + colour[2] + colour[3])
+            {
+                {
+                    std::stringstream payload;
+                    payload << "R:" << colour[0] << "G:" << colour[1] << "B:" << colour[2] << "C:" << colour[3];
+                    MQTTClient.publish(MQTT_COLOUR_TOPIC, payload.str().c_str(), true);
+                }
+
+                last_colour = colour[0] + colour[1] + colour[2] + colour[3];
             }
         }
     }
