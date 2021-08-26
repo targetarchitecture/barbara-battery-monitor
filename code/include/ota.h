@@ -4,7 +4,7 @@
 #include <ArduinoOTA.h>
 #include <Streaming.h>
 
-extern SemaphoreHandle_t wifiSemaphore;
+//extern SemaphoreHandle_t wifiSemaphore;
 
 void ota_handle(void *parameter)
 {

@@ -11,10 +11,6 @@ void setup_gps()
   GPSSerial.write(PMTK_SET_NMEA_OUTPUT_RMCGGA);
   GPSSerial.flush();
 
-  // #define PMTK_SET_NMEA_UPDATE_10Sec "$PMTK220,10000*2F"
-  //   GPSSerial.write(PMTK_SET_NMEA_UPDATE_10Sec); // 10 sec update rate
-  //   GPSSerial.flush();
-
   delay(1000);
 }
 

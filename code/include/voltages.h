@@ -9,4 +9,4 @@ extern volatile float  carVoltage;
 extern volatile float  solarVoltage;
 
 extern SemaphoreHandle_t i2cSemaphore;
-extern SemaphoreHandle_t uartSemaphore;
+//extern SemaphoreHandle_t uartSemaphore;

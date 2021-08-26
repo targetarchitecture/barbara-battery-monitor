@@ -11,8 +11,10 @@ extern WiFiMulti wifiMulti;
 
 extern TinyGPSPlus GPSModule;
 
-extern SemaphoreHandle_t wifiSemaphore;
-extern SemaphoreHandle_t uartSemaphore;
+extern volatile ulong lastIoTSentTime;
+
+//extern SemaphoreHandle_t wifiSemaphore;
+//extern SemaphoreHandle_t uartSemaphore;
 
 extern volatile float leisureVoltage;
 extern volatile float carVoltage;

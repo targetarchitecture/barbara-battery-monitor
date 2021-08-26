@@ -67,7 +67,7 @@ void loop_voltages()
   carVoltage = carVoltageSensor.getBusVoltage_V();
   solarVoltage = solarVoltageSensor.getBusVoltage_V();
 
-  xSemaphoreTake(uartSemaphore, portMAX_DELAY);
+  //xSemaphoreTake(uartSemaphore, portMAX_DELAY);
 
 #ifdef SERIAL_OUPUT
   Serial << "leisureVoltageSensor: " << leisureVoltage << " V" << endl;
@@ -75,7 +75,7 @@ void loop_voltages()
   Serial << "solarVoltageSensor: " << solarVoltage << " V" << endl;
 #endif
 
-  xSemaphoreGive(uartSemaphore);
+  //xSemaphoreGive(uartSemaphore);
 
   //give back the i2c flag for the next task
   xSemaphoreGive(i2cSemaphore);
